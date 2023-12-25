@@ -53,6 +53,40 @@ void SJF(struct Process processes[], int n) {
     printf("Average Waiting Time: %.2f\n", (float)total_waiting / n);
 }
 
+void RoundRobin(struct Process processes[], int n, int time_quantum) {
+    int time = 0;
+    int completed = 0;
+
+    while (completed != n) {
+        for (int i = 0; i < n; i++) {
+            if (processes[i].remaining_time > 0) {
+                if (processes[i].remaining_time > time_quantum) {
+                    time += time_quantum;
+                    processes[i].remaining_time -= time_quantum;
+                } else {
+                    time += processes[i].remaining_time;
+                    processes[i].remaining_time = 0;
+                    processes[i].completed = time;
+                    completed++;
+                }
+            }
+        }
+    }
+
+    printf("\nPID\tBurst Time\tArrival Time\tCompletion Time\tTurnaround Time\tWaiting Time\n");
+    int total_turnaround = 0, total_waiting = 0;
+    for (int i = 0; i < n; i++) {
+        int turnaround_time = processes[i].completed - processes[i].arrival_time;
+        int waiting_time = turnaround_time - processes[i].burst_time;
+        total_turnaround += turnaround_time;
+        total_waiting += waiting_time;
+        printf("%d\t%d\t\t%d\t\t%d\t\t%d\t\t\t%d\n", processes[i].pid, processes[i].burst_time, processes[i].arrival_time, processes[i].completed, turnaround_time, waiting_time);
+    }
+    printf("Average Turnaround Time: %.2f\n", (float)total_turnaround / n);
+    printf("Average Waiting Time: %.2f\n", (float)total_waiting / n);
+}
+
+
 int main() {
     int n;
     printf("Enter the number of processes: ");

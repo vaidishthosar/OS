@@ -39,7 +39,7 @@ int main(){
             if(flags[i] == 0){
                 int flag = 0;
                 for(int j = 0 ; j < m ; j++){
-                    if(need[i][j]>=available[i]){
+                    if(need[i][j]>=available[j]){
                         flag = 1;
                         break;
                     }

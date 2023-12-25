@@ -91,7 +91,7 @@ int main()
 
 	// request array
 	int arr[size] = { 176, 79, 34, 60,
-					92, 11, 41, 114 };
+					92, 11, 41, 114 }; 
 	int head = 50;
 	string direction = "left";
 

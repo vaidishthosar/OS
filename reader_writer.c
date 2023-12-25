@@ -54,7 +54,3 @@ pthread_join(wr[i],NULL);
 }
 }
 
-
-
-
-
